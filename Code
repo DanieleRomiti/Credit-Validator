@@ -1,0 +1,41 @@
+def credit_check():
+    
+    index1 = 0
+    double_alternate = []
+    index2 = 1
+    single_alternate = []
+    
+    while True:
+        error = 0
+        credit_num = str(raw_input('Enter your credit number please '))
+        try:
+            letter_check = float(credit_num)
+        except ValueError:
+            print 'Please digit the code without spaces and with only numbers'
+            error = 1
+        if (len(credit_num.split(' ')[0]) <= 15 or len(credit_num.split(' ')[0]) >= 17) and error == 0:
+            print 'Please enter a code of 16 digits, (you entered',len(credit_num.split(' ')[0]),'digits)'
+        if len(credit_num.split(' ')[0]) == 16 and error == 0:
+            break
+            
+    for count,item in enumerate(credit_num):
+        if count == index1 and index1 <= 14:
+            double_alternate += str((int(item))*2)
+            index1 += 2
+    
+    for count,item in enumerate(credit_num):
+        if count == index2 and index2 <= 13:
+            single_alternate += item
+            index2 += 2
+        
+    sum_digits = reduce(lambda x,y: int(x)+int(y),double_alternate) + reduce(lambda x,y: int(x)+int(y),single_alternate)
+    mul_digits = sum_digits*9
+        
+    for x in str(mul_digits):
+        last_digit = x
+    
+    if last_digit == credit_num[15]:
+        print 'Your credit card is valid'
+    else:
+        print 'I am sorry, your credit card is not valid'
+        
